@@ -149,6 +149,7 @@
 
 * If the files you want exist on somebody else's computer:
   * How do you find where to download them?
+  * How do you convince them to keep storing them, and to let you download them?
   * Once you have them, how do you know they are the right files and they haven't been tampered with?
 
 </script></section>
@@ -175,7 +176,8 @@
 <img src="ftp.png" />
 
 * File Transfer Protocol
-* Older than the web, older than TCP/IP!
+* Private FTPs still used today
+  * Often have "quota" systems: you need to upload quality stuff before you can download
 
 </script></section>
 
@@ -249,7 +251,8 @@
 
 <div class="right"><p data-markdown>
 * Chatroom full of bots that announce which files they have
-* When you see a file you want, send a command to the bot and it sends the file to you
+* When you see a file you want, send a command to the bot and it sends the file
+* Sometimes have quotas too
 </p></div>
 
 </section>
@@ -404,10 +407,10 @@ Filters, delta-encoding, gradients
 <div class="left"><p data-markdown>
 Binary addition:
 <pre style="font-size: 80%">
-   0 + 0 =  0
-   0 + 1 =  1
-   1 + 0 =  1
-   1 + 1 = <span class="highlight">1</span>0
+  0 + 0  =  0
+  0 + 1  =  1
+  1 + 0  =  1
+  1 + 1  = <span class="highlight">1</span>0
 <span class="highlight">carry bit ⤴</span>
 </pre>
 </p></div>
@@ -415,10 +418,10 @@ Binary addition:
 <div class="right"><p data-markdown>
 xor:
 <pre style="font-size: 80%">
-   0 ⊕ 0 =  0
-   0 ⊕ 1 =  1
-   1 ⊕ 0 =  1
-   1 ⊕ 1 =  0
+  0 ⊕ 0  =  0
+  0 ⊕ 1  =  1
+  1 ⊕ 0  =  1
+  1 ⊕ 1  =  0
 </pre>
 </p></div>
 
@@ -491,7 +494,7 @@ xor:
 </div>
 
 <div class="right"><p data-markdown>
-* You could save buying one drive by storing `A⊕B` as the backup
+* You can save money by buying only one drive and storing `A⊕B` as the backup
 * Still safe against any 1 drive failure
 * Example: If drive B fails, recover with:
       A ⊕ (A⊕B)
@@ -524,13 +527,83 @@ xor:
 
 
 
+
 <section data-markdown><script type="text/template">
 
-content addressed storage
-rsync?
-Bittorrent
-git
-secure scuttlebutt
+## rsync
+
+* [rsync](https://rsync.samba.org/) is a directory copying tool commonly used on linux/unix
+* When you run it, it connects to another system and checks what files you don't yet have
+* If a file has the same name, does it download it to compare if the contents have changed?
+  * No, that would waste bandwidth
+  * Instead, it hashes it on both computers, and only downloads if the hash has changed
+
+</script></section>
+
+
+
+<section data-markdown><script type="text/template">
+
+## git stores files by their hashes
+
+<pre style="font-size: 70%">
+$ git init
+Initialized empty Git repository in /home/doug/test/.git/
+
+$ echo "hello world" | git hash-object -w --stdin
+3b18e512dba79e4c8300dd08aeb37f8e728b8dad
+
+$ ls .git/objects/3b/18e512dba79e4c8300dd08aeb37f8e728b8dad
+.git/objects/3b/18e512dba79e4c8300dd08aeb37f8e728b8dad
+
+$ git cat-file -p 3b18e512dba79e4c8300dd08aeb37f8e728b8dad
+hello world
+</pre>
+
+</script></section>
+
+
+
+
+
+<section data-markdown><script type="text/template">
+
+## Content-addressed storage
+
+* rsync and git are examples of content-addressed storage (CAS)
+* Each File is referenced by a hash of its contents
+* If a file's contents change, so does its hash and therefore its CAS address
+* Don't need to care how or where the file is stored
+* You don't have to trust the system is giving you the right file: just check contents match the hash
+  * But how do you get the hash in the first place?
+
+</script></section>
+
+
+
+
+<section data-markdown><script type="text/template">
+
+## Bittorrent
+
+* Bittorrent is a popular decentralized protocol for sharing large files
+* Works by splitting up a large file into small equal-size chunks, and hashing each chunk:
+
+<img src="bittorrent.svg" style="background-color: white;" />
+
+</script></section>
+
+
+
+
+<section data-markdown><script type="text/template">
+
+## Bittorrent system
+
+* Files should be compressed to reduce transfer size
+* Splitting a file up into little pieces is like rar files on usenet
+* Hashing each chunk implements content-addressing
+* Peer to peer network where users trade chunks implements quota systems is like FTP or XDCC
 
 </script></section>
 
