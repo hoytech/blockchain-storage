@@ -353,6 +353,7 @@ aa9606eb8c0bbce00552907f541547c4c510134f *ubuntu-18.04.2-live-server-amd64.iso
 * As we can see, common usage of solidity ABI results in many `0` bytes
 * So that programmers don't have to do clever tricks to reduce the number of `0` bytes, we make them cheaper
 * This is OK, because long runs of `0` bytes (or any other single value) **compress** very well
+  * Why?
 
 </script></section>
 
@@ -365,22 +366,173 @@ aa9606eb8c0bbce00552907f541547c4c510134f *ubuntu-18.04.2-live-server-amd64.iso
 
 <pre style="font-size: 50%">
 0000000000000000000000000000000000000000000000000000000000000000000
-0000000000000000000000000004242424200000000000000000000000000000000
+000000000000000000000000000<span class="highlightGreen">42424242</span>00000000000000000000000000000000
 0000000000000000000000000000000000000000000000000000000000000000000
 0000000000000000000000000000000000000000000000000000000000000000000
 </pre>
 
 * This is: 48 `00`s, followed by 4 `42`s, followed by another 83 `00`s
-* We could encode this as
+* Instead of 135 bytes, we could encode this in 6:
 <pre>
 0x<span class="highlight">30</span>00<span class="highlight">04</span>42<span class="highlight">53</span>00
 </pre>
   * 0x30 = 48 in decimal, 0x53 = 83
 
 
+</script></section>
+
+
+
+<section data-markdown><script type="text/template">
+
+Filters, delta-encoding, gradients
 
 </script></section>
 
+
+
+<section>
+
+<p data-markdown>
+## xor (⊕)
+
+* eXclusive OR
+* Fundamental boolean logic operator: ⊕
+* Similar to addition, but no carry bits
+</p>
+
+<div class="left"><p data-markdown>
+Binary addition:
+<pre style="font-size: 80%">
+   0 + 0 =  0
+   0 + 1 =  1
+   1 + 0 =  1
+   1 + 1 = <span class="highlight">1</span>0
+<span class="highlight">carry bit ⤴</span>
+</pre>
+</p></div>
+
+<div class="right"><p data-markdown>
+xor:
+<pre style="font-size: 80%">
+   0 ⊕ 0 =  0
+   0 ⊕ 1 =  1
+   1 ⊕ 0 =  1
+   1 ⊕ 1 =  0
+</pre>
+</p></div>
+
+</section>
+
+
+<section data-markdown><script type="text/template">
+
+## xor properties
+
+* `0` is the identity:
+      X ⊕ 0 = X
+* Every element is its own inverse:
+      X ⊕ X = 0
+* Commutative:
+      (X ⊕ Y) ⊕ Z = X ⊕ (Y ⊕ Z)
+
+</script></section>
+
+
+
+
+<section data-markdown><script type="text/template">
+
+## Combining with xor
+
+* xor is often used to combine two values
+* Because it is a linear operation, it is easy to "un-combine" when needed
+* For example, say you compute
+      C = A ⊕ B
+  Somebody who knows `A` and `C` can *recover* `B`:
+      A ⊕ C  ⟹  A ⊕ (A ⊕ B)  ⟹  (A ⊕ A) ⊕ B  ⟹  0 ⊕ B  ⟹  B
+
+
+</script></section>
+
+
+
+
+
+
+<section>
+
+<p data-markdown>
+## Redundant backups
+</p>
+
+<div class="left">
+    <img src="backups1.svg" style="float: left; background-color: white;" />
+</div>
+
+<div class="right"><p data-markdown>
+* Say you have 2 hard-drives, A and B
+* Make a back-up by buying 2 more hard-drives for A and B
+* Now if you lose any 1 drive your files are still safe
+</p></div>
+
+</section>
+
+
+
+<section>
+
+<p data-markdown>
+## Parity backups
+</p>
+
+<div class="left">
+    <img src="backups2.svg" style="float: left; background-color: white;" />
+</div>
+
+<div class="right"><p data-markdown>
+* You could save buying one drive by storing `A⊕B` as the backup
+* Still safe against any 1 drive failure
+* Example: If drive B fails, recover with:
+      A ⊕ (A⊕B)
+</p></div>
+
+</section>
+
+
+
+<section data-markdown><script type="text/template">
+
+## Erasure codes
+
+* Parity backup is an example of an **erasure code**
+* This family of encodings allow you to recover the full data-set given only a portion of the data
+  * In other words, they are resilient to small amounts data loss
+* Real world examples:
+  * [RAID](https://en.wikipedia.org/wiki/RAID)
+  * [Usenet PAR archives](https://en.wikipedia.org/wiki/Parchive)
+
+</script></section>
+
+
+
+<section data-markdown><script type="text/template">
+
+## 15 minute break
+
+</script></section>
+
+
+
+<section data-markdown><script type="text/template">
+
+content addressed storage
+rsync?
+Bittorrent
+git
+secure scuttlebutt
+
+</script></section>
 
 
 
