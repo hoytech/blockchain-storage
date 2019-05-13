@@ -76,6 +76,23 @@
         color: green;
         font-weight: bold;
       }
+
+      .left {
+        left:-8.33%;
+        text-align: left;
+        float: left;
+        width:50%;
+        z-index:-10;
+      }
+
+      .right {
+        left:31.25%;
+        top: 75px;
+        text-align: left;
+        float: right;
+        z-index:-10;
+        width:50%;
+      }
     </style>
   </head>
 
@@ -105,9 +122,9 @@
 
 ## Lesson Topics
 
-* A
-* B
-* C
+* History
+* Compression and error correcting codes
+* Content addressing
 
 </script></section>
 
@@ -117,7 +134,9 @@
 
 ## Centralization
 
-* Storage has tr
+* Storage has traditionally been decentralized
+* People would store their files on their own hard-drives
+  * Outsourcing storage to Google/Amazon is a new phenomenom
 
 </script></section>
 
@@ -126,35 +145,76 @@
 
 <section data-markdown><script type="text/template">
 
+## File Sharing
+
+* If the files you want exist on somebody else's computer:
+  * How do you find where to download them?
+  * Once you have them, how do you know they are the right files and they haven't been tampered with?
+
+</script></section>
+
+
+
+
+<section data-markdown><script type="text/template">
+
+## Sneaker-net
+
+<img src="floppies.jpg" width="60%" />
+
+</script></section>
+
+
+
+
+
+<section data-markdown><script type="text/template">
+
+## FTP
+
+<img src="ftp.png" />
+
+* File Transfer Protocol
+* Older than the web, older than TCP/IP!
+
+</script></section>
+
+
+
+
+
+<section data-markdown><script type="text/template">
+
+## Site-to-site transfers (FXP)
+
+<img src="fxp.svg" style="background-color: white;" />
+
+* FTP allows a client to transfer files between 2 servers without having to download the file itself
+
+</script></section>
+
+
+
+
+
+<section>
+
+<p data-markdown>
 ## Usenet
+</p>
 
-<img src="usenet.gif" />
+<div class="left">
+    <img style="float: left" src="usenet.gif" />
+</div>
 
-</script></section>
+<div class="right"><p data-markdown>
+* Collection of mailing lists, commonly used for posting files
+* Archived and hosted by a network of ISPs and usenet providers
+* Decentralized file-sharing since 1980
+</p></div>
 
+</section>
 
-
-
-<section data-markdown><script type="text/template">
-
-## IRC XDCC
-
-<img src="xdcc.jpg" width="70%" />
-
-</script></section>
-
-
-
-
-
-
-<section data-markdown><script type="text/template">
-
-## Napster
-
-<img src="napster.jpg" width="80%" />
-
-</script></section>
 
 
 
@@ -162,10 +222,11 @@
 
 ## Splitting files
 
-* Sometimes if a file was too big, it would be split up into multiple smaller files
-* User would have to download them all and reassemble them
+* On usenet, if a file is too big it has to be split up into multiple smaller files
+* Users have to download them all and then reassemble the original
 * For example, **rar** format
   * `file.rar` becomes:
+    * `file.r00`
     * `file.r01`
     * `file.r02`
     * etc
@@ -174,21 +235,78 @@
 
 
 
+
+
+<section>
+
+<p data-markdown>
+## IRC XDCC
+</p>
+
+<div class="left">
+    <img style="float: left" src="xdcc.jpg" />
+</div>
+
+<div class="right"><p data-markdown>
+* Chatroom full of bots that announce which files they have
+* When you see a file you want, send a command to the bot and it sends the file to you
+</p></div>
+
+</section>
+
+
+
+
+
+<section>
+
+<p data-markdown>
+## Napster
+</p>
+
+<div class="left">
+    <img style="float: left" src="napster.jpg" />
+</div>
+
+<div class="right"><p data-markdown>
+* Was a popular program for trading MP3 music files
+* Used central control server, but files sent P2P (like FTP's FXP)
+* Shutdown by music industry lawyers
+</p></div>
+
+</section>
+
+
+
+
 <section data-markdown><script type="text/template">
 
-## Run-Length Encoding
+## Checksums
 
-    0000000000000000000000000000000000000000000000000000000000000000000
-    0000000000000000000000000000444444400000000000000000000000000000000
-    0000000000000000000000000000000000000000000000000000000000000000000
-    0000000000000000000000000000000000000000000000000000000000000000000
+<pre class="hljs js" style="font-size: 45%">
+bcdb9099024c468047f3f31c7d23e68a35ea4de2 *ubuntu-18.04.2-desktop-amd64.iso
+aa9606eb8c0bbce00552907f541547c4c510134f *ubuntu-18.04.2-live-server-amd64.iso
+</pre>
 
-* Compressed:
-  * 97 `0`s
-  * followed by 7 `4`s
-  * followed by 166 `0`s
+* Often you will find `SHA1SUMS` files (and similar)
+* These are cryptographic hashes of the files
+* This is so that you can verify a file you have downloaded hasn't been corrupted in any way
+* So you don't need to worry about whoever hosted the file putting in viruses etc
+  * *But where did you download the hashes from?*
 
 </script></section>
+
+
+
+
+<section data-markdown><script type="text/template">
+
+## 15 minute break
+
+</script></section>
+
+
+
 
 
 
@@ -196,10 +314,74 @@
 
 ## Ethereum data costs
 
-* In ethereum call data, each 0 byte costs 4 gas
-* And each non-zero byte costs 68 gas
+* On the ethereum block-chain, call data costs gas for each byte
+  * `0` bytes cost 4 gas
+  * All other bytes cost 68 gas
+* Why are `0` bytes cheaper?
 
 </script></section>
+
+
+
+
+<section data-markdown><script type="text/template">
+
+## Solidity ABI encoding
+
+* Consider this function:
+      function myFunc(uint 256 value) { ... }
+* Calling `myFunc(100)` results in this data:
+
+<pre style="font-size: 50%">
+0x<span class="highlightGreen">a9bf5633</span><span class="highlight">0000000000000000000000000000000000000000000000000000000000000000</span><span class="highlightRed">64</span>
+</pre>
+
+* <span class="highlightGreen">Function selector</span>
+* <span class="highlight">Padding for the `uint256`</span>
+* <span class="highlightRed">0x64 = 100 in decimal</span>
+
+</script></section>
+
+
+
+
+
+<section data-markdown><script type="text/template">
+
+## Compression
+
+* As we can see, common usage of solidity ABI results in many `0` bytes
+* So that programmers don't have to do clever tricks to reduce the number of `0` bytes, we make them cheaper
+* This is OK, because long runs of `0` bytes (or any other single value) **compress** very well
+
+</script></section>
+
+
+
+
+<section data-markdown><script type="text/template">
+
+## Run-Length Encoding
+
+<pre style="font-size: 50%">
+0000000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000004242424200000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000000
+</pre>
+
+* This is: 48 `00`s, followed by 4 `42`s, followed by another 83 `00`s
+* We could encode this as
+<pre>
+0x<span class="highlight">30</span>00<span class="highlight">04</span>42<span class="highlight">53</span>00
+</pre>
+  * 0x30 = 48 in decimal, 0x53 = 83
+
+
+
+</script></section>
+
+
 
 
 
