@@ -131,6 +131,159 @@
 
 
 
+<section data-markdown><script type="text/template">
+
+## Password storage
+
+* You should never store your users' passwords in plain-text
+  * If your database is hacked then they will be exposed
+  * This is bad because many users use the same password on multiple sites
+* Instead you should store the output of a password hashing function
+  * "Key derivation function"
+
+</script></section>
+
+
+
+<section data-markdown><script type="text/template">
+
+## Password hashing functions
+
+* Like regular hash functions, except:
+  * Designed to be very slow to compute, so it takes a long time to crack
+  * Supports salts
+    * A non-secret random value included in the hash to prevent cracking multiple passwords at once
+
+</script></section>
+
+
+
+<section data-markdown><script type="text/template">
+
+## Password database
+
+Example unix password DB:
+
+<pre class="hljs js" style="font-size: 45%">
+alice:$2y$10$weUPjZkUXH6gsPt14UcR/uxCoHRVYf4oEe1CdAZTnHq8eM3SzbXsW
+bob:$2y$10$DwIX.8e3sNlh8sMMJzS5P./j0BNtGwejh/dxvTH4TDjmBzoEOpfd.
+carol:$2y$10$xK/m/d4vGlGLylOnQGb/kO4g16aC4S0VrsHOxVcG5zHHO3GQj/vwG
+</pre>
+
+* The DB doesn't store the plain-text passwords
+* But if you have the DB you can verify somebody knows a password by hashing what they provide and comparing to what's in the DB
+  * The password they provide is a "proof" they know the password
+
+</script></section>
+
+
+
+
+
+<section>
+
+<p data-markdown>
+## git
+</p>
+
+<div class="left">
+    <img src="git1.svg" style="float: left; border:0px; background-color: white" />
+</div>
+
+<div class="right"><p data-markdown>
+* git stores a tree of *commits*
+* Each commit is hashed and the hash is its id
+* Each commit references its parents by their hashes
+</p></div>
+
+</section>
+
+
+
+<section>
+
+<div class="left">
+    <img src="git2.svg" style="float: left; border:0px; background-color: white" />
+</div>
+
+<div class="right"><p data-markdown>
+* Suppose somebody knows the root node hash *`f910ba..`* and nothing else
+* Let's say we want to prove to them that the "bugfix!!" commit exists in the tree
+</p></div>
+
+</section>
+
+
+
+
+<section>
+
+<div class="left">
+    <img src="git3.svg" style="float: left; border:0px; background-color: white" />
+</div>
+
+<div class="right"><p data-markdown>
+* You send them the highlighted nodes and they can re-compute the hash themselves to verify
+* The purple is the node you are proving exists
+* The red nodes are called "witnesses"
+</p></div>
+
+</section>
+
+
+
+
+<section>
+
+<div class="left">
+    <img src="git3.svg" style="float: left; border:0px; background-color: white" />
+</div>
+
+<div class="right" style="font-size: 90%"><p data-markdown>
+1. Hash the bugfix node and verify the "fix tests" witness node includes this hash
+1. Hash the "fix tests" witness and verify the "merge commit" witness includes this hash
+1. Hash the "merge commit" witness and verify the trusted hash matches this hash
+</p></div>
+
+</section>
+
+
+
+<section>
+
+<div class="left">
+    <img src="git3.svg" style="float: left; border:0px; background-color: white" />
+</div>
+
+<div class="right"><p data-markdown>
+* Note that the verifier never needed any of the grey nodes to verify the proof
+* If a secure hash function is used, there is no way to modify the "bugfix" commit and use it to make a valid proof
+</p></div>
+
+</section>
+
+
+
+
+<section data-markdown><script type="text/template">
+
+## Merkle trees
+
+* A merkle tree is a tree where each node references a hash of its parent nodes
+* If somebody knows the root node hash, we can prove that any node exists by providing a **proof**
+  * The proof may include some nodes that the prover isn't interested in but are needed to verify the proof: **witnesses**
+
+</script></section>
+
+
+
+
+<section data-markdown><script type="text/template">
+
+## 15 minute break
+
+</script></section>
+
 
 <section data-markdown><script type="text/template">
 

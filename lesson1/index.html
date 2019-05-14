@@ -134,7 +134,7 @@
 
 ## Centralization
 
-* Storage has traditionally been decentralized
+* Storage has traditionally been *de*centralized
 * People would store their files on their own hard-drives
   * Outsourcing storage to Google/Amazon is a new phenomenom
 
@@ -312,6 +312,17 @@ aa9606eb8c0bbce00552907f541547c4c510134f *ubuntu-18.04.2-live-server-amd64.iso
 
 
 
+<section data-markdown><script type="text/template">
+
+## Storage on the blockchain
+
+* It is possible to store data on the blockchain also
+* But it is very expensive
+
+</script></section>
+
+
+
 
 <section data-markdown><script type="text/template">
 
@@ -332,7 +343,7 @@ aa9606eb8c0bbce00552907f541547c4c510134f *ubuntu-18.04.2-live-server-amd64.iso
 ## Solidity ABI encoding
 
 * Consider this function:
-      function myFunc(uint 256 value) { ... }
+      function myFunc(uint256 value) { ... }
 * Calling `myFunc(100)` results in this data:
 
 <pre style="font-size: 50%">
@@ -580,7 +591,7 @@ hello world
 ## Content-addressed storage
 
 * rsync and git are examples of content-addressed storage (CAS)
-* Each File is referenced by a hash of its contents
+* Each file is referenced by a hash of its contents
 * If a file's contents change, so does its hash and therefore its CAS address
 * Don't need to care how or where the file is stored
 * You don't have to trust somebody is giving you the right file: just check contents match the hash
