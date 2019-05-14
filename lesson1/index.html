@@ -191,7 +191,7 @@
 
 <img src="fxp.svg" style="background-color: white;" />
 
-* FTP allows a client to transfer files between 2 servers without having to download the file itself
+* FTP allows a client to transfer files between two servers without having to download the file itself
 
 </script></section>
 
@@ -354,8 +354,8 @@ aa9606eb8c0bbce00552907f541547c4c510134f *ubuntu-18.04.2-live-server-amd64.iso
 ## Compression
 
 * As we can see, common usage of solidity ABI results in many `0` bytes
-* So that programmers don't have to do clever tricks to reduce the number of `0` bytes, we make them cheaper
-* This is OK, because long runs of `0` bytes (or any other single value) **compress** very well
+* So that programmers don't have to do clever tricks to reduce the number of `0` bytes, they are billed as taking less gas
+* This works out because long runs of `0` bytes (or any other single value) **compress** very well
   * Why?
 
 </script></section>
@@ -391,7 +391,7 @@ aa9606eb8c0bbce00552907f541547c4c510134f *ubuntu-18.04.2-live-server-amd64.iso
 
 * Some data cannot directly benefit from run-length encoding:
       00010203040506070809
-* But use a "filter" that changes every byte to the difference between it and the previous byte:
+* But try a "filter" that changes every byte to the difference between it and the previous byte:
       00010101010101010101
 * Real-world example, image with colour gradient:
 
@@ -485,7 +485,7 @@ xor:
 <div class="right"><p data-markdown>
 * Say you have 2 hard-drives, A and B
 * Make a back-up by buying 2 more hard-drives for A and B
-* Now if you lose any 1 drive your files are still safe
+* Now if you lose any one drive your files are still safe
 </p></div>
 
 </section>
@@ -504,7 +504,7 @@ xor:
 
 <div class="right"><p data-markdown>
 * You can save money by buying only one drive and storing `A⊕B` as the backup
-* Still safe against any 1 drive failure
+* Still safe against any one drive failure
 * Example: If drive B fails, recover with:
       A ⊕ (A⊕B)
 </p></div>
@@ -519,7 +519,7 @@ xor:
 
 * Parity backup is an example of an **erasure code**
 * This family of encodings allow you to recover the full data-set given only a portion of the data
-  * In other words, they are resilient to small amounts data loss
+  * In other words, they are resilient to certain amounts of data loss (or unavailability)
 * Real world examples:
   * [RAID](https://en.wikipedia.org/wiki/RAID)
   * [Usenet PAR archives](https://en.wikipedia.org/wiki/Parchive)
@@ -545,7 +545,7 @@ xor:
 * When you run it, it connects to another system and checks what files you don't yet have
 * If a file has the same name, does it download it to compare if the contents have changed?
   * No, that might waste bandwidth
-  * Instead, it hashes it on both computers, and only downloads if the hash has changed
+  * Instead, it hashes it locally on both computers, and only downloads if the hash is different
 
 </script></section>
 
