@@ -375,12 +375,11 @@ aa9606eb8c0bbce00552907f541547c4c510134f *ubuntu-18.04.2-live-server-amd64.iso
 </pre>
 
 * This is: 48 `00`s, followed by 4 `42`s, followed by another 83 `00`s
-* Instead of 135 bytes, we could encode this in 6:
+* Instead of 135 bytes, we could encode this as:
 <pre>
 0x<span class="highlight">30</span>00<span class="highlight">04</span>42<span class="highlight">53</span>00
 </pre>
   * 0x30 = 48 in decimal, 0x53 = 83
-
 
 </script></section>
 
@@ -388,7 +387,15 @@ aa9606eb8c0bbce00552907f541547c4c510134f *ubuntu-18.04.2-live-server-amd64.iso
 
 <section data-markdown><script type="text/template">
 
-Filters, delta-encoding, gradients
+## Delta-encoding
+
+* Some data cannot directly benefit from run-length encoding:
+      00010203040506070809
+* But use a "filter" that changes every byte to the difference between it and the previous byte:
+      00010101010101010101
+* Real-world example, image with colour gradient:
+
+<img src="gradient.png" style="border:0px" />
 
 </script></section>
 
@@ -437,6 +444,8 @@ xor:
 * Every element is its own inverse:
       X ⊕ X = 0
 * Commutative:
+      X ⊕ Y = Y ⊕ X
+* Associative:
       (X ⊕ Y) ⊕ Z = X ⊕ (Y ⊕ Z)
 
 </script></section>
@@ -535,7 +544,7 @@ xor:
 * [rsync](https://rsync.samba.org/) is a directory copying tool commonly used on linux/unix
 * When you run it, it connects to another system and checks what files you don't yet have
 * If a file has the same name, does it download it to compare if the contents have changed?
-  * No, that would waste bandwidth
+  * No, that might waste bandwidth
   * Instead, it hashes it on both computers, and only downloads if the hash has changed
 
 </script></section>
@@ -574,8 +583,8 @@ hello world
 * Each File is referenced by a hash of its contents
 * If a file's contents change, so does its hash and therefore its CAS address
 * Don't need to care how or where the file is stored
-* You don't have to trust the system is giving you the right file: just check contents match the hash
-  * But how do you get the hash in the first place?
+* You don't have to trust somebody is giving you the right file: just check contents match the hash
+  * *But how do you get the hash in the first place?*
 
 </script></section>
 
@@ -598,12 +607,38 @@ hello world
 
 <section data-markdown><script type="text/template">
 
-## Bittorrent system
+## Bittorrent P2P network
 
-* Files should be compressed to reduce transfer size
-* Splitting a file up into little pieces is like rar files on usenet
-* Hashing each chunk implements content-addressing
-* Peer to peer network where users trade chunks implements quota systems is like FTP or XDCC
+* When a bittorrent client starts to download a file, it connects to a P2P network
+  * Other nodes that have the file are found using a Distributed Hash-Table (DHT)
+* The client swaps chunks of the file with other clients
+  * It can immediately verify if chunks are valid by hashing
+  * Favours trading with clients that quickly send it valid chunks
+
+</script></section>
+
+
+
+
+<section data-markdown><script type="text/template">
+
+## Summary of bittorrent
+
+* Files are compressed using advanced algorithms (such as audio/video codecs)
+* Files are then split up into little pieces (like rar files on usenet)
+* Each chunk is content-addressed by its hash (like rsync/git)
+* Peer to peer network where users trade chunks is a quota-like system (like FTP/XDCC)
+
+</script></section>
+
+
+
+
+<section data-markdown><script type="text/template">
+
+## Lab 1: Compression
+
+[compression.html](compression.html)
 
 </script></section>
 
