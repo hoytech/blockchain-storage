@@ -1,0 +1,23 @@
+<style>
+body { font-size: 20px; }
+div { margin-top: 20px; }
+
+ul > li {
+  margin-top: 10px;
+}
+</style>
+
+<h1>Lab 1: Shrinker</h1>
+
+<div>Create a file compression program. Download <a href="shrinker.js">shrinker.js</a> and modify it. Your modified version should support shrinking and unshrinking files. Test it on the files below.</div>
+
+<div>Your submission should be only your modified shrinker.js file. <b>Do not submit .zip files</b> or anything else, or you will receive 0 (but you can re-submit). If your program can shrink and unshrink test case 1, you get 3 points. Test case 2 is 4 points. Anything else gives 5 points.</div>
+
+<ul>
+  <li><a href="testcase1.dat">testcase1.dat</a>: 48 "00" bytes, followed by 4 "42" bytes, followed by 83 "00" bytes (same as example in slides)</li>
+  <li><a href="testcase1a.dat">testcase1a.dat</a>: 48 "A" characters, followed by 4 "B" characters, followed by 83 "A" characters (may be easier to test than the previous)</li>
+  <li><a href="testcase2.dat">testcase2.dat</a>: 10 sequential bytes (same as example in slides)</li>
+  <li><a href="testcase2a.dat">testcase2a.dat</a>: 26 sequential bytes: the lowercase alphabet (may be easier to test than the previous)</li>
+  <li><a href="testcase3.dat">testcase3.dat</a>: Has a large run of spaces in it. This might expose a bug in your shrinker if you assume runs are always smaller than 256 bytes.</li>
+  <li><a href="testcase4.dat">testcase4.dat</a>: [DIFFICULT] Some real javascript code. There are lots of repeated spaces so your run-length encoder may be able to shrink it. However, because the simple solution uses 2 bytes for every run of length 1, you probably will increase the size of this file. Consider making a special "tag" byte that says a run is coming up.</li>
+</ul>

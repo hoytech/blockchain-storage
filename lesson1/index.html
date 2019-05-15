@@ -364,9 +364,10 @@ aa9606eb8c0bbce00552907f541547c4c510134f *ubuntu-18.04.2-live-server-amd64.iso
 
 ## Compression
 
-* As we can see, common usage of solidity ABI results in many `0` bytes
-* So that programmers don't have to do clever tricks to reduce the number of `0` bytes, they are billed as taking less gas
-* This works out because long runs of `0` bytes (or any other single value) **compress** very well
+* As we can see, common usage of solidity ABI results in many `00` bytes
+  * Same with `FF` bytes. Why?
+* So that programmers don't need to do clever tricks to reduce the number of `00` bytes, these bytes require less gas
+* This works out because long runs of `00` bytes (or any other single value) **compress** very well
   * Why?
 
 </script></section>
@@ -647,9 +648,9 @@ hello world
 
 <section data-markdown><script type="text/template">
 
-## Lab 1: Compression
+## Lab 1: Shrinker
 
-[compression.html](compression.html)
+[shrinker.html](shrinker.html)
 
 </script></section>
 
