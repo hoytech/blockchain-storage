@@ -276,12 +276,95 @@ carol:$2y$10$xK/m/d4vGlGLylOnQGb/kO4g16aC4S0VrsHOxVcG5zHHO3GQj/vwG
 
 
 
+<section data-markdown><script type="text/template">
+
+## History of Merkle trees
+
+* Invented by Ralph Merkle in late 70s
+* Was first used to to implement hash-based signatures
+  * See the [Signatures Made Simple](https://hoytech.github.io/blockchain-security/lesson1/index.html#/27) slide from our security course
+    * By using Merkle trees, we can make key-pairs that sign many messages
+* Why use a tree?
+
+</script></section>
+
+
+
+<section data-markdown><script type="text/template">
+
+## Exponential growth
+
+<img src="exponential.svg" style="background-color: white;" />
+
+</script></section>
+
+
+
+<section data-markdown><script type="text/template">
+
+## Proof size
+
+* Because of exponential growth, the number of nodes in our tree grows much faster than the number of levels
+  * Each leaf node is a data item
+  * Each level increases our proof size by 1 (we need a witness at that level)
+* The number of witnesses required grows according to the *logarithm* of the data items
+
+</script></section>
+
+
 
 <section data-markdown><script type="text/template">
 
 ## 15 minute break
 
 </script></section>
+
+
+
+
+<section data-markdown><script type="text/template">
+
+## Simplified Payment Verification
+
+* In Bitcoin it is possible to verify a transaction has been included in the blockchain without downloading all the blocks
+* Only need the block headers of the longest chain
+  * Keep asking nodes until you are sure you have longest chain
+  * Get somebody who has the full chain to generate you a merkle proof
+    * Electrum servers can do this
+
+</script></section>
+
+
+
+<section data-markdown><script type="text/template">
+
+## Simplified Payment Verification
+
+<img src="spv.svg" style="background-color: white;" />
+
+</script></section>
+
+
+
+
+<section>
+
+<p data-markdown>
+## Certificate transparency
+</p>
+
+<div class="left">
+    <img width="100%" src="certtrans.png" style="float: left; border:0px; background-color: white" />
+</div>
+
+<div class="right"><p data-markdown>
+* Project that tries to keep SSL Certificate Authorities honest
+* So they can't sign SSL certificates for spy agencies without getting caught
+</p></div>
+
+</section>
+
+
 
 
 <section data-markdown><script type="text/template">
