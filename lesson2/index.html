@@ -283,8 +283,8 @@ carol:$2y$10$xK/m/d4vGlGLylOnQGb/kO4g16aC4S0VrsHOxVcG5zHHO3GQj/vwG
 * Invented by Ralph Merkle in late 70s
 * Was first used to to implement hash-based signatures
   * See the [Signatures Made Simple](https://hoytech.github.io/blockchain-security/lesson1/index.html#/27) slide from our security course
-    * By using Merkle trees, we can make key-pairs that sign many messages
-* Why use a tree?
+  * By using Merkle trees, we can make key-pairs that sign many messages
+  * Most advanced hash-based signatures still use on merkle trees, ie XMSS: eXtended Merkle Signature Scheme
 
 </script></section>
 
@@ -363,6 +363,20 @@ carol:$2y$10$xK/m/d4vGlGLylOnQGb/kO4g16aC4S0VrsHOxVcG5zHHO3GQj/vwG
 </p></div>
 
 </section>
+
+
+
+
+<section data-markdown><script type="text/template">
+
+## Merkle Mountain Ranges
+
+<img src="mmr.svg" style="background-color: white;" />
+
+* If you don't have a power-of-two number of leaf nodes, an alternative is to have multiple roots
+  * Roots are called "peaks", as in mountain peaks
+
+</script></section>
 
 
 
