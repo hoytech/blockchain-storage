@@ -283,8 +283,8 @@ carol:$2y$10$xK/m/d4vGlGLylOnQGb/kO4g16aC4S0VrsHOxVcG5zHHO3GQj/vwG
 * Invented by Ralph Merkle in late 70s
 * Was first used to to implement hash-based signatures
   * See the [Signatures Made Simple](https://hoytech.github.io/blockchain-security/lesson1/index.html#/27) slide from our security course
-  * By using Merkle trees, we can make key-pairs that sign many messages
-  * Most advanced hash-based signatures still use on merkle trees, ie XMSS: eXtended Merkle Signature Scheme
+  * By using Merkle trees, we can make key-pairs that can sign many messages
+  * Modern hash-based signatures still use merkle trees, ie XMSS: eXtended Merkle Signature Scheme
 
 </script></section>
 
@@ -381,6 +381,43 @@ carol:$2y$10$xK/m/d4vGlGLylOnQGb/kO4g16aC4S0VrsHOxVcG5zHHO3GQj/vwG
 ## Attack: Reinterpret intermediate as data element
 
 <img src="merkle-attack.svg" style="background-color: white;" />
+
+</script></section>
+
+
+
+
+<section data-markdown><script type="text/template">
+
+## Defense
+
+* This attack is usually quite impractical, since the fake data element is the output of a hash function
+* It can be prevented by hashing nodes differently from leafs
+  * For example, prepend a byte:
+    * H<sub>node</sub>(x) = H("\x00" + x)
+    * H<sub>leaf</sub>(x) = H("\x01" + x)
+  * Or use "keyed hash" functions (like BLAKE2) with different keys for node/leaf
+  * Special tree-hashing algorithms like Sakura
+
+</script></section>
+
+
+
+<section data-markdown><script type="text/template">
+
+## Omit ID optimization
+
+* In EOS there is a minor optimization where they don't need to provide the data element ID along with a proof
+* Each witness hash is truncated by 1 bit, and replaced with a bit that indicates "left" or "right"
+  * Left:
+<pre style="font-size: 75%">
+<span class="highlight">0</span>10011001001110101100110011010011110011...
+</pre>
+  * Right:
+<pre style="font-size: 75%">
+<span class="highlight">1</span>11110110111100101000001110001101010100...
+</pre>
+
 
 </script></section>
 
