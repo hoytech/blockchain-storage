@@ -376,6 +376,50 @@ carol:$2y$10$xK/m/d4vGlGLylOnQGb/kO4g16aC4S0VrsHOxVcG5zHHO3GQj/vwG
 
 
 
+
+
+<section>
+
+<p data-markdown>
+## Odd number of items
+</p>
+
+<div class="left">
+    <img width="100%" src="merkle-odd.svg" style="float: left; border:0px; background-color: white" />
+</div>
+
+<div class="right"><p data-markdown>
+* What do you do if you have an odd number of items in your DB?
+</p></div>
+
+</section>
+
+
+
+
+<section>
+
+<p data-markdown>
+## Bitcoin bug CVE-2012-2459
+</p>
+
+<div class="left">
+    <img width="100%" src="merkle-odd2.svg" style="float: left; border:0px; background-color: white" />
+</div>
+
+<div class="right"><p data-markdown>
+* Bitcoin oddly chose to duplicate the last item
+* This was a security bug because there are 2 possible DBs with same root
+  * 7 items: [0,1,2,3,4,5,6]
+  * 8 items: [0,1,2,3,4,5,6,6]
+</p></div>
+
+</section>
+
+
+
+
+
 <section data-markdown><script type="text/template">
 
 ## Attack: Reinterpret intermediate as data element
@@ -383,7 +427,6 @@ carol:$2y$10$xK/m/d4vGlGLylOnQGb/kO4g16aC4S0VrsHOxVcG5zHHO3GQj/vwG
 <img src="merkle-attack.svg" style="background-color: white;" />
 
 </script></section>
-
 
 
 
@@ -420,6 +463,11 @@ carol:$2y$10$xK/m/d4vGlGLylOnQGb/kO4g16aC4S0VrsHOxVcG5zHHO3GQj/vwG
 
 
 </script></section>
+
+
+
+
+
 
 
 
