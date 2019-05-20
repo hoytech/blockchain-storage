@@ -123,9 +123,49 @@
 ## Lesson Topics
 
 * Proofs and witnesses
-* Merkle trees in smart contracts
+* Merkle trees
 
 </script></section>
+
+
+
+<section data-markdown><script type="text/template">
+
+## Storing hashes on-chain
+
+* In some smart contract protocols, a user can commit to a certain value for a file, data-base, etc
+* Because it is expensive to store data on-chain, it is common to hash this value and store the hash on-chain
+  * Uploading the whole file might be impractical or impossible (may exceed gas block limit)
+
+</script></section>
+
+
+
+
+<section data-markdown><script type="text/template">
+
+## Validating on-chain hashes
+
+* In order for other protocol participants to access this file, they must download it by some off-chain method
+  * Bittorrent, usenet, freenet, IPFS, secure scuttlebutt, centralized hosting, whatever
+* The participant does **not** need to trust this off-chain source because they will verify the file against the on-chain hash
+  * It is *content addressed*
+
+</script></section>
+
+
+
+<section data-markdown><script type="text/template">
+
+## Bringing it back on-chain
+
+* But what if a smart contract needs to access the file?
+* If it had the file, the smart contract could hash the file and compare the hash. But it doesn't, and here we have the same problem as before:
+  * It's too expensive/impossible to upload the file to the chain
+
+</script></section>
+
+
 
 
 
@@ -171,7 +211,7 @@ carol:$2y$10$xK/m/d4vGlGLylOnQGb/kO4g16aC4S0VrsHOxVcG5zHHO3GQj/vwG
 
 * The DB doesn't store the plain-text passwords
 * But if you have the DB you can verify somebody knows a password by hashing what they provide and comparing to what's in the DB
-  * The password they provide is a "proof" they know the password
+  * The password they provide is a **proof** they know the password
 
 </script></section>
 
@@ -222,7 +262,7 @@ carol:$2y$10$xK/m/d4vGlGLylOnQGb/kO4g16aC4S0VrsHOxVcG5zHHO3GQj/vwG
 </div>
 
 <div class="right"><p data-markdown>
-* You send them the highlighted nodes and they can re-compute the hash themselves to verify
+* You send them the highlighted commits and they can re-compute the hash themselves to verify
 * The purple is the node you are proving exists
 * The red nodes are called "witnesses"
 </p></div>
@@ -264,11 +304,23 @@ carol:$2y$10$xK/m/d4vGlGLylOnQGb/kO4g16aC4S0VrsHOxVcG5zHHO3GQj/vwG
 
 
 
+
+
+<section data-markdown><script type="text/template">
+
+## 15 minute break
+
+</script></section>
+
+
+
+
 <section data-markdown><script type="text/template">
 
 ## Merkle trees
 
-* A merkle tree is a tree where each node references a hash of its parent nodes
+* A merkle tree is a tree where each node references its child nodes by their hashes
+  * Often simply called a *hash tree*
 * If somebody knows the root node hash, we can prove that any node exists by providing a **proof**
   * The proof may include some nodes that the prover isn't interested in but are needed to verify the proof: **witnesses**
 
@@ -292,7 +344,7 @@ carol:$2y$10$xK/m/d4vGlGLylOnQGb/kO4g16aC4S0VrsHOxVcG5zHHO3GQj/vwG
 
 <section data-markdown><script type="text/template">
 
-## Exponential growth
+## Why a tree? Exponential growth
 
 <img src="exponential.svg" style="background-color: white;" />
 
@@ -306,18 +358,12 @@ carol:$2y$10$xK/m/d4vGlGLylOnQGb/kO4g16aC4S0VrsHOxVcG5zHHO3GQj/vwG
 
 * Because of exponential growth, the number of nodes in our tree grows much faster than the number of levels
   * Each leaf node is a data item
-  * Each level increases our proof size by 1 (we need a witness at that level)
+  * Each level increases our proof size by 1 hash (we need a witness at that level)
 * The number of witnesses required grows according to the *logarithm* of the data items
 
 </script></section>
 
 
-
-<section data-markdown><script type="text/template">
-
-## 15 minute break
-
-</script></section>
 
 
 
@@ -408,10 +454,10 @@ carol:$2y$10$xK/m/d4vGlGLylOnQGb/kO4g16aC4S0VrsHOxVcG5zHHO3GQj/vwG
 </div>
 
 <div class="right"><p data-markdown>
-* Bitcoin oddly chose to duplicate the last item
+* Bitcoin strangly duplicates last item
 * This was a security bug because there are 2 possible DBs with same root
-  * 7 items: [0,1,2,3,4,5,6]
-  * 8 items: [0,1,2,3,4,5,6,6]
+* [0,1,2,3,4,5,6]
+* [0,1,2,3,4,5,6,6]
 </p></div>
 
 </section>
@@ -422,7 +468,7 @@ carol:$2y$10$xK/m/d4vGlGLylOnQGb/kO4g16aC4S0VrsHOxVcG5zHHO3GQj/vwG
 
 <section data-markdown><script type="text/template">
 
-## Attack: Reinterpret intermediate as data element
+## Attack: Reinterpret intermediate nodes as data element
 
 <img src="merkle-attack.svg" style="background-color: white;" />
 
@@ -440,7 +486,7 @@ carol:$2y$10$xK/m/d4vGlGLylOnQGb/kO4g16aC4S0VrsHOxVcG5zHHO3GQj/vwG
     * H<sub>node</sub>(x) = H("\x00" + x)
     * H<sub>leaf</sub>(x) = H("\x01" + x)
   * Or use "keyed hash" functions (like BLAKE2) with different keys for node/leaf
-  * Special tree-hashing algorithms like Sakura
+  * Special tree-hashing schemes like Sakura
 
 </script></section>
 
@@ -448,9 +494,9 @@ carol:$2y$10$xK/m/d4vGlGLylOnQGb/kO4g16aC4S0VrsHOxVcG5zHHO3GQj/vwG
 
 <section data-markdown><script type="text/template">
 
-## Omit ID optimization
+## Omitted ID optimization
 
-* In EOS there is a minor optimization where they don't need to provide the data element ID along with a proof
+* In EOS there is a minor optimization where the prover doesn't need to provide the data element ID along with a proof
 * Each witness hash is truncated by 1 bit, and replaced with a bit that indicates "left" or "right"
   * Left:
 <pre style="font-size: 75%">
@@ -466,6 +512,27 @@ carol:$2y$10$xK/m/d4vGlGLylOnQGb/kO4g16aC4S0VrsHOxVcG5zHHO3GQj/vwG
 
 
 
+
+<section data-markdown><script type="text/template">
+
+## Merkle Mountain Ranges
+
+<img src="mmr.svg" style="background-color: white;" />
+
+* If you don't have a power-of-two number of leaf nodes, an alternative is to have multiple roots
+  * Roots are called "peaks", as in mountain peaks
+
+</script></section>
+
+
+
+
+
+<section data-markdown><script type="text/template">
+
+## 15 minute break
+
+</script></section>
 
 
 
@@ -515,17 +582,6 @@ carol:$2y$10$xK/m/d4vGlGLylOnQGb/kO4g16aC4S0VrsHOxVcG5zHHO3GQj/vwG
 
 
 
-
-<section data-markdown><script type="text/template">
-
-## Merkle Mountain Ranges
-
-<img src="mmr.svg" style="background-color: white;" />
-
-* If you don't have a power-of-two number of leaf nodes, an alternative is to have multiple roots
-  * Roots are called "peaks", as in mountain peaks
-
-</script></section>
 
 
 

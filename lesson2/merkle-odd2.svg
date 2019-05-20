@@ -463,12 +463,6 @@
        d="m 124.91645,105.26977 v 13.94568"
        id="path5466-1"
        inkscape:connector-curvature="0" />
-    <circle
-       style="fill:#000000;fill-opacity:1;stroke:#0a0a0a;stroke-width:1.06225097;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
-       id="path2131-02-0-4"
-       cx="141.40327"
-       cy="104.48521"
-       r="2.2082808" />
     <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.28576177;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="m 141.66666,105.54651 v 13.94568"
@@ -503,5 +497,11 @@
          x="137.36124"
          y="138.56523"
          style="fill:#ff0000;stroke:#ff0000;stroke-width:0.1231418px">110</tspan></text>
+    <circle
+       style="fill:#ff0000;fill-opacity:1;stroke:#ff0000;stroke-width:1.06225097;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="path2131-02-0-4"
+       cx="141.84673"
+       cy="104.32923"
+       r="2.2082808" />
   </g>
 </svg>
