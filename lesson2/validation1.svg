@@ -155,8 +155,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.4142136"
-     inkscape:cx="322.51094"
-     inkscape:cy="210.71803"
+     inkscape:cx="188.86776"
+     inkscape:cy="207.8896"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -196,7 +196,7 @@
          x="49.609642"
          y="68.906311"
          style="fill:#000000;stroke-width:0.16101976px"
-         id="tspan3383">At the start, validator</tspan><tspan
+         id="tspan3383">At the start, verifier</tspan><tspan
          sodipodi:role="line"
          x="49.609642"
          y="76.957298"
@@ -301,7 +301,7 @@
          id="tspan3383-5">and is given the</tspan><tspan
          sodipodi:role="line"
          x="49.139854"
-         y="109.76046"
+         y="109.76047"
          style="fill:#000000;stroke-width:0.16101976px"
          id="tspan5585">following proof:</tspan></text>
     <rect

@@ -155,8 +155,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.4142136"
-     inkscape:cx="185.35063"
-     inkscape:cy="184.54572"
+     inkscape:cx="51.707452"
+     inkscape:cy="181.71729"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -378,46 +378,46 @@
     <circle
        style="fill:#ff00ff;fill-opacity:1;stroke:#aa0000;stroke-width:1.08022463;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="path2131-0-2-0-7-4-1-6"
-       cx="67.502525"
+       cx="69.619194"
        cy="86.450645"
        r="2.2456455" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:4.51046324px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.11276157px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="71.791527"
+       x="73.908195"
        y="87.718361"
        id="text7118-4-6-0-6-3"><tspan
          sodipodi:role="line"
          id="tspan7116-3-0-6-0-0"
-         x="71.791527"
+         x="73.908195"
          y="87.718361"
          style="stroke-width:0.11276157px">candidate root</tspan></text>
     <circle
        style="fill:#ff00ff;fill-opacity:1;stroke:#ff00ff;stroke-width:1.08022463;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="path2131-0-2-0-7-4-1-1"
-       cx="123.44202"
+       cx="125.55869"
        cy="86.482758"
        r="2.2456455" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:4.51046324px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.11276157px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="127.73103"
+       x="129.84767"
        y="87.750427"
        id="text7118-4-6-0-6-4"><tspan
          sodipodi:role="line"
          id="tspan7116-3-0-6-0-8"
-         x="127.73103"
+         x="129.84767"
          y="87.750427"
          style="stroke-width:0.11276157px">root</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:8.8826313px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.22206578px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="108.42271"
+       x="110.53938"
        y="89.043724"
        id="text5273-2-8-8-6-2-6"><tspan
          sodipodi:role="line"
          id="tspan5271-6-8-9-7-8-6"
-         x="108.42271"
+         x="110.53938"
          y="89.043724"
          style="stroke-width:0.22206578px">=</tspan></text>
     <text
@@ -430,7 +430,7 @@
          id="tspan5271-6-8-9-7-8-6-6"
          x="53.054447"
          y="89.824211"
-         style="stroke-width:0.22206578px">if</tspan></text>
+         style="stroke-width:0.22206578px">iff</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:8.8826313px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.22206578px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -441,6 +441,6 @@
          id="tspan5271-6-8-9-7-8-6-7"
          x="52.857372"
          y="100.26902"
-         style="stroke-width:0.22206578px">then proof is valid</tspan></text>
+         style="stroke-width:0.22206578px">then proof is verified</tspan></text>
   </g>
 </svg>
