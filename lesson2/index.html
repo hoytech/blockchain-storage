@@ -600,12 +600,12 @@ carol:$2y$10$xK/m/d4vGlGLylOnQGb/kO4g16aC4S0VrsHOxVcG5zHHO3GQj/vwG
 
 ## Defense
 
-* This attack is usually quite impractical, since the fake data element is the output of a hash function
-* It can be prevented by hashing nodes differently from leafs
+* This attack is usually quite impractical, since the fake data element is 2 hash outputs
+* It can be protected against by hashing nodes differently from leafs
   * For example, prepend a byte:
-    * H<sub>node</sub>(x) = H("\x00" + x)
-    * H<sub>leaf</sub>(x) = H("\x01" + x)
-  * Or use a keyable hash function (like BLAKE2) with different keys for node/leaf
+    * H<sub>leaf</sub>(x) = H("\x00" + x)
+    * H<sub>node</sub>(x) = H("\x01" + x)
+  * Or use a keyable hash function (like BLAKE2) with different keys for node vs. leaf
   * Special tree-hashing schemes like Sakura
 
 </script></section>
@@ -730,7 +730,7 @@ carol:$2y$10$xK/m/d4vGlGLylOnQGb/kO4g16aC4S0VrsHOxVcG5zHHO3GQj/vwG
 * After creating the token contract, send transactions transferring tokens to each address
 * Requires spamming the network with many transactions
   * Costs lots of ETH in gas
-  * Wasteful: Most recipients don't even care about their tokens!
+  * Wasteful: Most recipients don't even care about these tokens!
 
 </script></section>
 
