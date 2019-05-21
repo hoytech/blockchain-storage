@@ -315,12 +315,21 @@ carol:$2y$10$xK/m/d4vGlGLylOnQGb/kO4g16aC4S0VrsHOxVcG5zHHO3GQj/vwG
 
 
 
+<section data-markdown><script type="text/template">
+
+## Review: Trees
+
+<img src="trees.svg" style="background-color: white;" />
+
+</script></section>
+
+
 
 <section data-markdown><script type="text/template">
 
 ## Merkle trees
 
-* A merkle tree is a tree where each node references its child nodes by their hashes
+* A merkle tree is a tree where each node references its lower nodes by their hashes
   * Often simply called a *hash tree*
 * If somebody knows the root node hash, we can prove that any node exists by providing a **proof**
   * The proof may include some nodes that the prover isn't interested in but are needed to verify the proof: **witnesses**
@@ -337,7 +346,7 @@ carol:$2y$10$xK/m/d4vGlGLylOnQGb/kO4g16aC4S0VrsHOxVcG5zHHO3GQj/vwG
 * Was first used to to implement hash-based signatures
   * See the [Signatures Made Simple](https://hoytech.github.io/blockchain-security/lesson1/index.html#/27) slide from our security course
   * By using Merkle trees, we can make key-pairs that can sign many messages
-  * Modern hash-based signatures still use merkle trees, ie XMSS: eXtended Merkle Signature Scheme
+  * Modern hash-based signatures still use merkle trees, ie XMSS: eXtended Merkle Signature Scheme (RFC 8391)
 
 </script></section>
 
@@ -345,7 +354,7 @@ carol:$2y$10$xK/m/d4vGlGLylOnQGb/kO4g16aC4S0VrsHOxVcG5zHHO3GQj/vwG
 
 <section data-markdown><script type="text/template">
 
-## Why a tree? Exponential growth
+## Why trees? Exponential growth
 
 <img src="exponential.svg" style="background-color: white;" />
 
@@ -361,6 +370,7 @@ carol:$2y$10$xK/m/d4vGlGLylOnQGb/kO4g16aC4S0VrsHOxVcG5zHHO3GQj/vwG
   * Each leaf node is a data item
   * Each level increases our proof size by 1 hash (we need a witness at that level)
 * The number of witnesses required grows according to the *logarithm* of the data items
+  * Proofs can be small, even for huge numbers of nodes
 
 </script></section>
 
@@ -393,30 +403,37 @@ carol:$2y$10$xK/m/d4vGlGLylOnQGb/kO4g16aC4S0VrsHOxVcG5zHHO3GQj/vwG
 
 
 <section data-markdown><script type="text/template">
+## Example proof (1/7)
 <img src="merkle2.svg" style="background-color: white;" />
 </script></section>
 
 <section data-markdown><script type="text/template">
+## Example proof (2/7)
 <img src="merkle3.svg" style="background-color: white;" />
 </script></section>
 
 <section data-markdown><script type="text/template">
+## Example proof (3/7)
 <img src="merkle4.svg" style="background-color: white;" />
 </script></section>
 
 <section data-markdown><script type="text/template">
+## Example proof (4/7)
 <img src="merkle5.svg" style="background-color: white;" />
 </script></section>
 
 <section data-markdown><script type="text/template">
+## Example proof (5/7)
 <img src="merkle6.svg" style="background-color: white;" />
 </script></section>
 
 <section data-markdown><script type="text/template">
+## Example proof (6/7)
 <img src="merkle7.svg" style="background-color: white;" />
 </script></section>
 
 <section data-markdown><script type="text/template">
+## Example proof (7/7)
 <img src="merkle8.svg" style="background-color: white;" />
 </script></section>
 
@@ -456,13 +473,31 @@ carol:$2y$10$xK/m/d4vGlGLylOnQGb/kO4g16aC4S0VrsHOxVcG5zHHO3GQj/vwG
 
 <div class="right"><p data-markdown>
 * Bitcoin strangly duplicates last item
-* This was a security bug because there are 2 possible DBs with same root
+* This was a security bug because there are 2 possible DBs with same root:
 * [0,1,2,3,4,5,6]
 * [0,1,2,3,4,5,6,6]
 </p></div>
 
 </section>
 
+
+
+<section>
+
+<p data-markdown>
+## Odd number of items, fixed
+</p>
+
+<div class="left">
+    <img width="100%" src="merkle-odd3.svg" style="float: left; border:0px; background-color: white" />
+</div>
+
+<div class="right"><p data-markdown>
+* Better approach is to just move the odd node up a level
+* In this case the proof for `6` would use the ID `3 (11)` and only provide 2 witnesses
+</p></div>
+
+</section>
 
 
 
@@ -582,6 +617,41 @@ carol:$2y$10$xK/m/d4vGlGLylOnQGb/kO4g16aC4S0VrsHOxVcG5zHHO3GQj/vwG
 </section>
 
 
+
+
+<section data-markdown><script type="text/template">
+
+## Air-drops
+
+* Some token creators want to give their tokens an initial distribution by giving them away
+* Usually to every address who holds ETH at a certain block height
+* This is why you may see unknown (usually worthless) tokens appear in your wallet sometimes
+
+</script></section>
+
+
+
+
+<section data-markdown><script type="text/template">
+
+## Air-drops: Impossible way
+
+* When creating the token contract, pass the list of addresses and their initial token balances in to the constructor
+* Won't work because there may be millions of addresses
+  * Can't fit that much data in a block
+    * Exceeds block gas limit
+
+</script></section>
+
+
+
+<section data-markdown><script type="text/template">
+
+## Air-drops: Inefficient way
+
+* After creating the token, spam
+
+</script></section>
 
 
 
