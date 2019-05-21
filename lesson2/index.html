@@ -394,7 +394,7 @@ carol:$2y$10$xK/m/d4vGlGLylOnQGb/kO4g16aC4S0VrsHOxVcG5zHHO3GQj/vwG
 <div class="right"><p data-markdown>
 * A merkle tree is a way of structuring a data-base in a way it can be verified with proofs
 * Here is a DB with 8 elements in it
-* 3 bit IDs required, because:
+* 3 bit paths required, because:
   * log2(8) = 3
 </p></div>
 
@@ -484,7 +484,7 @@ carol:$2y$10$xK/m/d4vGlGLylOnQGb/kO4g16aC4S0VrsHOxVcG5zHHO3GQj/vwG
 </div>
 
 <div class="right"><p data-markdown>
-* What do you do if you have an odd number of items in your DB?
+* What do you do if you have an odd number of items on a layer?
 </p></div>
 
 </section>
@@ -503,7 +503,7 @@ carol:$2y$10$xK/m/d4vGlGLylOnQGb/kO4g16aC4S0VrsHOxVcG5zHHO3GQj/vwG
 </div>
 
 <div class="right"><p data-markdown>
-* Bitcoin strangly duplicates last item
+* Bitcoin protocol unconventionally duplicates last item
 * This was a security bug because there are 2 possible DBs with same root:
 * [0,1,2,3,4,5,6]
 * [0,1,2,3,4,5,6,6]
@@ -525,10 +525,42 @@ carol:$2y$10$xK/m/d4vGlGLylOnQGb/kO4g16aC4S0VrsHOxVcG5zHHO3GQj/vwG
 
 <div class="right"><p data-markdown>
 * Better approach is to just move the odd node up a level
-* In this case the proof for `6` would use the ID `3 (11)` and only provide 2 witnesses
+* In this case the proof for `6` would use the path `3 (11)` and only provide 2 witnesses
 </p></div>
 
 </section>
+
+
+
+
+<section data-markdown><script type="text/template">
+
+## Omitted path optimization
+
+* In EOS there is a minor optimization where the prover doesn't need to provide the path along with a proof
+* Each witness hash is truncated by 1 bit, and replaced with a bit that indicates "left" or "right"
+  * Left:
+<pre style="font-size: 75%">
+<span class="highlight">0</span>10011001001110101100110011010011110011...
+</pre>
+  * Right:
+<pre style="font-size: 75%">
+<span class="highlight">1</span>11110110111100101000001110001101010100...
+</pre>
+
+
+</script></section>
+
+
+
+
+
+<section data-markdown><script type="text/template">
+
+## 15 minute break
+
+</script></section>
+
 
 
 
@@ -559,26 +591,6 @@ carol:$2y$10$xK/m/d4vGlGLylOnQGb/kO4g16aC4S0VrsHOxVcG5zHHO3GQj/vwG
 
 
 
-<section data-markdown><script type="text/template">
-
-## Omitted ID optimization
-
-* In EOS there is a minor optimization where the prover doesn't need to provide the data element ID along with a proof
-* Each witness hash is truncated by 1 bit, and replaced with a bit that indicates "left" or "right"
-  * Left:
-<pre style="font-size: 75%">
-<span class="highlight">0</span>10011001001110101100110011010011110011...
-</pre>
-  * Right:
-<pre style="font-size: 75%">
-<span class="highlight">1</span>11110110111100101000001110001101010100...
-</pre>
-
-
-</script></section>
-
-
-
 
 <section data-markdown><script type="text/template">
 
@@ -594,12 +606,6 @@ carol:$2y$10$xK/m/d4vGlGLylOnQGb/kO4g16aC4S0VrsHOxVcG5zHHO3GQj/vwG
 
 
 
-
-<section data-markdown><script type="text/template">
-
-## 15 minute break
-
-</script></section>
 
 
 
@@ -643,6 +649,26 @@ carol:$2y$10$xK/m/d4vGlGLylOnQGb/kO4g16aC4S0VrsHOxVcG5zHHO3GQj/vwG
 <div class="right"><p data-markdown>
 * Project that tries to keep SSL Certificate Authorities honest
 * So they can't sign SSL certificates for spy agencies without getting caught
+</p></div>
+
+</section>
+
+
+
+
+<section>
+
+<p data-markdown>
+## Merkle Patricia Trie
+</p>
+
+<div class="left">
+    <img width="100%" src="trie.png" style="float: left; border:0px; background-color: white" />
+</div>
+
+<div class="right"><p data-markdown>
+* Merkle Patricia Trie is a way to efficiently handle *sparse* paths, like the output of hash functions
+* First implemented in Ripple, popularised by Ethereum
 </p></div>
 
 </section>
