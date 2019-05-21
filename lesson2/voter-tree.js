@@ -19,14 +19,14 @@ let addresses = fs.readFileSync(addressesFile, 'utf-8')
                   ;
 
 if (mode === 'root') {
-    console.log(merkleRoot(addresses));
+    console.log('root: ' + merkleRoot(addresses));
 } else if (mode === 'proof') {
     if (process.argv.length < 5) throw("must pass in address to prove");
 
     let proof = merkleProof(addresses, process.argv[4]);
 
-    console.log('path: ', proof.path);
-    console.log('witnesses: ', JSON.stringify(proof.witnesses));
+    console.log('path: ' + proof.path);
+    console.log('witnesses: ' + JSON.stringify(proof.witnesses));
 } else {
     throw("unrecognized mode: " + mode);
 }
