@@ -124,7 +124,7 @@
 
 * Proofs and witnesses
 * Merkle trees
-* Applications of merkle trees
+* Attacks and applications
 
 </script></section>
 
@@ -135,8 +135,8 @@
 ## Storing hashes on-chain
 
 * In some smart contract protocols, a user can commit to a certain value for a file, data-base, etc
-* Because it is expensive to store data on-chain, it is common to hash this value and store the hash on-chain
-  * Uploading the whole file might be impractical or impossible (may exceed gas block limit)
+* Because it is expensive to store data on-chain, it is common to hash this value and store only the hash on-chain
+  * Uploading the whole file to the chain might be impractical or impossible (may exceed gas block limit)
 
 </script></section>
 
@@ -147,8 +147,8 @@
 
 ## Validating on-chain hashes
 
-* In order for other protocol participants to access this file, they must download it by some off-chain method
-  * Bittorrent, usenet, freenet, IPFS, secure scuttlebutt, centralized hosting, whatever
+* To get this file, protocol participants must download it from some off-chain system
+  * Bittorrent, usenet, freenet, IPFS, secure scuttlebutt, centralized hosting &mdash; whatever
 * The participant does **not** need to trust this off-chain source because they will verify the file against the on-chain hash
   * It is *content addressed*
 
@@ -160,8 +160,9 @@
 
 ## Bringing it back on-chain
 
-* But what if a smart contract needs to access the file?
-* If it had the file, the smart contract could hash the file and compare the hash. But it doesn't, and here we have the same problem as before:
+* But what if a smart contract needs to access the file, or part of it?
+* If it had the file, the smart contract could hash the file and compare the hash
+* But it doesn't, and we have the same problem as before:
   * It's too expensive/impossible to upload the file to the chain
 
 </script></section>
@@ -173,13 +174,12 @@
 
 <section data-markdown><script type="text/template">
 
-## Password storage
+## Quick sidebar: Password storage
 
 * You should never store your users' passwords in plain-text
   * If your database is hacked then they will be exposed
   * This is bad because many users use the same password on multiple sites
 * Instead you should store the output of a password hashing function
-  * "Key derivation function"
 
 </script></section>
 
@@ -192,7 +192,7 @@
 * Like regular hash functions, except:
   * Designed to be very slow to compute, so it takes a long time to crack
   * Supports salts
-    * A non-secret random value included in the hash to prevent cracking multiple passwords at once
+    * A non-secret random value included in the hash to prevent cracking multiple passwords at once, or in advance
 
 </script></section>
 
@@ -200,7 +200,7 @@
 
 <section data-markdown><script type="text/template">
 
-## Password database
+## Proof of knowledge
 
 Example unix password DB:
 
@@ -211,7 +211,7 @@ carol:$2y$10$xK/m/d4vGlGLylOnQGb/kO4g16aC4S0VrsHOxVcG5zHHO3GQj/vwG
 </pre>
 
 * The DB doesn't store the plain-text passwords
-* But if you have the DB you can verify somebody knows a password by hashing what they provide and comparing to what's in the DB
+* But you can verify somebody knows a password by hashing what they provide and comparing to what's in the DB
   * The password they provide is a **proof** they know the password
 
 </script></section>
@@ -232,8 +232,8 @@ carol:$2y$10$xK/m/d4vGlGLylOnQGb/kO4g16aC4S0VrsHOxVcG5zHHO3GQj/vwG
 
 <div class="right"><p data-markdown>
 * git stores a tree of *commits*
-* Each commit is hashed and the hash is its id
-* Each commit references its parents by their hashes
+* Each commit is hashed and the hash is its *commit id*
+* Each commit references its parent(s) by their hashes
 </p></div>
 
 </section>
@@ -275,11 +275,15 @@ carol:$2y$10$xK/m/d4vGlGLylOnQGb/kO4g16aC4S0VrsHOxVcG5zHHO3GQj/vwG
 
 <section>
 
+<p data-markdown>
+## Verification steps
+</p>
+
 <div class="left">
     <img src="git3.svg" style="float: left; border:0px; background-color: white" />
 </div>
 
-<div class="right" style="font-size: 90%"><p data-markdown>
+<div class="right" style="font-size: 80%"><p data-markdown>
 1. Hash the bugfix node and verify the "fix tests" witness node includes this hash
 1. Hash the "fix tests" witness and verify the "merge commit" witness includes this hash
 1. Hash the "merge commit" witness and verify the trusted hash matches this hash
@@ -304,17 +308,6 @@ carol:$2y$10$xK/m/d4vGlGLylOnQGb/kO4g16aC4S0VrsHOxVcG5zHHO3GQj/vwG
 
 
 
-
-
-
-<section data-markdown><script type="text/template">
-
-## 15 minute break
-
-</script></section>
-
-
-
 <section data-markdown><script type="text/template">
 
 ## Review: Trees
@@ -327,12 +320,45 @@ carol:$2y$10$xK/m/d4vGlGLylOnQGb/kO4g16aC4S0VrsHOxVcG5zHHO3GQj/vwG
 
 <section data-markdown><script type="text/template">
 
+## Why trees? Exponential growth
+
+<img src="exponential.svg" style="background-color: white;" />
+
+</script></section>
+
+
+
+<section data-markdown><script type="text/template">
+
+## Concatenation notation
+
+* For the rest of this talk we will use the `+` operator to indicate concatenation
+  * Because javascript does it this way
+* Normally I prefer to use a different operator since addition is commutative but concatenation isn't
+
+</script></section>
+
+
+
+
+<section data-markdown><script type="text/template">
+
+## 15 minute break
+
+</script></section>
+
+
+
+
+
+<section data-markdown><script type="text/template">
+
 ## Merkle trees
 
 * A merkle tree is a tree where each node references its lower nodes by their hashes
   * Often simply called a *hash tree*
-* If somebody knows the root node hash, we can prove that any node exists by providing a **proof**
-  * The proof may include some nodes that the prover isn't interested in but are needed to verify the proof: **witnesses**
+* If somebody knows the root node, we can prove that any node exists by providing a **proof**
+  * The proof will include some nodes that the prover isn't interested in but are needed to verify the proof: **witnesses**
 
 </script></section>
 
@@ -343,7 +369,7 @@ carol:$2y$10$xK/m/d4vGlGLylOnQGb/kO4g16aC4S0VrsHOxVcG5zHHO3GQj/vwG
 ## History of Merkle trees
 
 * Invented by Ralph Merkle in late 70s
-* Was first used to to implement hash-based signatures
+* Original purpose was to implement hash-based signatures
   * See the [Signatures Made Simple](https://hoytech.github.io/blockchain-security/lesson1/index.html#/27) slide from our security course
   * By using Merkle trees, we can make key-pairs that can sign many messages
   * Modern hash-based signatures still use merkle trees, ie XMSS: eXtended Merkle Signature Scheme (RFC 8391)
@@ -352,13 +378,6 @@ carol:$2y$10$xK/m/d4vGlGLylOnQGb/kO4g16aC4S0VrsHOxVcG5zHHO3GQj/vwG
 
 
 
-<section data-markdown><script type="text/template">
-
-## Why trees? Exponential growth
-
-<img src="exponential.svg" style="background-color: white;" />
-
-</script></section>
 
 
 
@@ -392,13 +411,15 @@ carol:$2y$10$xK/m/d4vGlGLylOnQGb/kO4g16aC4S0VrsHOxVcG5zHHO3GQj/vwG
 </div>
 
 <div class="right"><p data-markdown>
-* A merkle tree is a way of structuring a data-base in a way it can be verified with proofs
+* A merkle tree is a way of structuring a data-base so it can be verified with proofs
 * Here is a DB with 8 elements in it
 * 3 bit paths required, because:
   * log2(8) = 3
 </p></div>
 
 </section>
+
+
 
 
 
@@ -525,7 +546,7 @@ carol:$2y$10$xK/m/d4vGlGLylOnQGb/kO4g16aC4S0VrsHOxVcG5zHHO3GQj/vwG
 
 <div class="right"><p data-markdown>
 * Better approach is to just move the odd node up a level
-* In this case the proof for `6` would use the path `3 (11)` and only provide 2 witnesses
+* In this case the proof for `6` would use the path `11` and only provide 2 witnesses
 </p></div>
 
 </section>
@@ -539,11 +560,11 @@ carol:$2y$10$xK/m/d4vGlGLylOnQGb/kO4g16aC4S0VrsHOxVcG5zHHO3GQj/vwG
 
 * In EOS there is a minor optimization where the prover doesn't need to provide the path along with a proof
 * Each witness hash is truncated by 1 bit, and replaced with a bit that indicates "left" or "right"
-  * Left:
+  * Left witness:
 <pre style="font-size: 75%">
 <span class="highlight">0</span>10011001001110101100110011010011110011...
 </pre>
-  * Right:
+  * Right witness:
 <pre style="font-size: 75%">
 <span class="highlight">1</span>11110110111100101000001110001101010100...
 </pre>
@@ -584,7 +605,7 @@ carol:$2y$10$xK/m/d4vGlGLylOnQGb/kO4g16aC4S0VrsHOxVcG5zHHO3GQj/vwG
   * For example, prepend a byte:
     * H<sub>node</sub>(x) = H("\x00" + x)
     * H<sub>leaf</sub>(x) = H("\x01" + x)
-  * Or use "keyed" hash functions (like BLAKE2) with different keys for node/leaf
+  * Or use a keyable hash function (like BLAKE2) with different keys for node/leaf
   * Special tree-hashing schemes like Sakura
 
 </script></section>
@@ -598,8 +619,9 @@ carol:$2y$10$xK/m/d4vGlGLylOnQGb/kO4g16aC4S0VrsHOxVcG5zHHO3GQj/vwG
 
 <img src="mmr.svg" style="background-color: white;" />
 
-* If you don't have a power-of-two number of leaf nodes, an alternative is to have multiple roots
-  * Roots are called "peaks", as in mountain peaks
+* When you don't have a power-of-two number of leaf nodes, an alternative is to have multiple roots
+  * Roots are called "peaks"
+* Advantage: Doesn't invalidate old roots when appending new elements
 
 </script></section>
 
@@ -618,7 +640,7 @@ carol:$2y$10$xK/m/d4vGlGLylOnQGb/kO4g16aC4S0VrsHOxVcG5zHHO3GQj/vwG
 * In Bitcoin it is possible to verify a transaction has been included in the blockchain without downloading all the blocks
 * Only need the block headers of the longest chain
   * Keep asking nodes until you are sure you have longest chain
-  * Get somebody who has the full chain to generate you a merkle proof
+  * Get someone who has the full chain to generate you a merkle proof
     * Electrum servers can do this
 
 </script></section>
@@ -681,7 +703,7 @@ carol:$2y$10$xK/m/d4vGlGLylOnQGb/kO4g16aC4S0VrsHOxVcG5zHHO3GQj/vwG
 ## Air-drops
 
 * Some token creators want to give their tokens an initial distribution by giving them away
-* Usually to every address who holds ETH at a certain block height
+  * Usually to every address that held ETH at a certain block height
 * This is why you may see unknown (usually worthless) tokens appear in your wallet sometimes
 
 </script></section>
@@ -695,8 +717,7 @@ carol:$2y$10$xK/m/d4vGlGLylOnQGb/kO4g16aC4S0VrsHOxVcG5zHHO3GQj/vwG
 
 * When creating the token contract, pass the list of addresses and their initial token balances in to the constructor
 * Won't work because there could be millions of addresses
-  * Can't fit that much data in a block
-    * Exceeds block gas limit
+  * Can't fit that much data in a block (exceeds block gas limit)
 
 </script></section>
 
@@ -709,9 +730,10 @@ carol:$2y$10$xK/m/d4vGlGLylOnQGb/kO4g16aC4S0VrsHOxVcG5zHHO3GQj/vwG
 * After creating the token contract, send transactions transferring tokens to each address
 * Requires spamming the network with many transactions
   * Costs lots of ETH in gas
-  * Most recipients don't even care about their tokens!
+  * Wasteful: Most recipients don't even care about their tokens!
 
 </script></section>
+
 
 
 
@@ -720,20 +742,7 @@ carol:$2y$10$xK/m/d4vGlGLylOnQGb/kO4g16aC4S0VrsHOxVcG5zHHO3GQj/vwG
 ## Air-drops: Better way
 
 * Use a merkle tree to commit to the initial balances
-* Anybody can submit a proof and claim their tokens
-  * The contract creator doesn't pay any gas for the distribution
-  * Only people who care about their tokens need to pay gas
-
-</script></section>
-
-
-
-<section data-markdown><script type="text/template">
-
-## Air-drops: Better way
-
-* Use a merkle tree to commit to the initial balances
-* Anybody can submit a proof and claim their tokens
+* Recipients can submit a proof to claim their tokens
   * The contract creator doesn't pay any gas for the distribution
   * Only people who care about their tokens need to pay gas
 
