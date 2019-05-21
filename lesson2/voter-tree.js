@@ -35,7 +35,7 @@ if (mode === 'root') {
 // interface functions
 
 function merkleRoot(items) {
-    if (items.length === 0) throw("can't build merkle tree without level");
+    if (items.length === 0) throw("can't build merkle tree with empty items");
 
     let level = items.map(leafHash);
 
@@ -93,8 +93,8 @@ function hashLevel(level) {
     return nextLevel;
 }
 
-function leafHash(v) {
-    return ethers.utils.keccak256(ethers.utils.concat(['0x00', v]));
+function leafHash(leaf) {
+    return ethers.utils.keccak256(ethers.utils.concat(['0x00', leaf]));
 }
 
 function nodeHash(left, right) {
