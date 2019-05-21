@@ -10,8 +10,31 @@ ul > li {
 <h1>Lab 2: Voting</h1>
 
 <div>
+In this lab, we will implement a smart contract that allows certain addresses to vote <i>yes</i> or <i>no</i> on some proposal. We don't want to copy/paste the list of addresses allowed to vote into the smart contract because it may be very large. Instead, we will encode this list as a merkle tree, and voters will need to submit a merkle proof of their eligibility in order to vote.
+</div>
+
+<div>
+Modify the <a href="Voting.sol">Voting.sol</a> file to properly check the provided merkle tree proof.
+</div>
+
+<div>
+Your submission should be only your modified Voting.sol file. <b>Do not submit .zip files</b> or anything else, or you will receive 0 (but you can re-submit).
 </div>
 
 <ul>
-  <li></li>
+  <li>Download the <a href="voter-tree.js">voter-tree.js</a> and <a href="addresses.txt">addresses.txt</a> files.</li>
+
+  <li>Open up the <a href="https://remix.ethereum.org/">remix solidity IDE</a>, copy your account address, and add it somewhere to the <i>addresses.txt</i> file you downloaded.</li>
+
+  <li>Generate the merkle root for the <i>addresses.txt</i> file by running the following command:
+<pre>node voter-tree.js root addresses.txt</pre>
+  </li>
+
+  <li>Copy this root and use it as the constructor argument to deploy the <i>Voting.sol</i> file in remix.</li>
+
+  <li>Generate a proof for your address by running the following command (replace the address with your own):
+<pre>node voter-tree.js proof addresses.txt 0xa4a23fad4fbe75ab601600ffae10d70e935196fd</pre>
+  </li>
+
+  <li>Use the proof as input to the <i>vote()</i> function in your solidity program.</li>
 </ul>
