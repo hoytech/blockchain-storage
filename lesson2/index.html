@@ -440,6 +440,37 @@ carol:$2y$10$xK/m/d4vGlGLylOnQGb/kO4g16aC4S0VrsHOxVcG5zHHO3GQj/vwG
 
 
 
+<section data-markdown><script type="text/template">
+## Example validation (1/6)
+<img src="validation1.svg" style="background-color: white;" />
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Example validation (2/6)
+<img src="validation2.svg" style="background-color: white;" />
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Example validation (3/6)
+<img src="validation3.svg" style="background-color: white;" />
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Example validation (4/6)
+<img src="validation4.svg" style="background-color: white;" />
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Example validation (5/6)
+<img src="validation5.svg" style="background-color: white;" />
+</script></section>
+
+<section data-markdown><script type="text/template">
+## Example validation (6/6)
+<img src="validation6.svg" style="background-color: white;" />
+</script></section>
+
+
 
 
 <section>
@@ -637,7 +668,7 @@ carol:$2y$10$xK/m/d4vGlGLylOnQGb/kO4g16aC4S0VrsHOxVcG5zHHO3GQj/vwG
 ## Air-drops: Impossible way
 
 * When creating the token contract, pass the list of addresses and their initial token balances in to the constructor
-* Won't work because there may be millions of addresses
+* Won't work because there could be millions of addresses
   * Can't fit that much data in a block
     * Exceeds block gas limit
 
@@ -649,11 +680,49 @@ carol:$2y$10$xK/m/d4vGlGLylOnQGb/kO4g16aC4S0VrsHOxVcG5zHHO3GQj/vwG
 
 ## Air-drops: Inefficient way
 
-* After creating the token, spam
+* After creating the token contract, send transactions transferring tokens to each address
+* Requires spamming the network with many transactions
+  * Costs lots of ETH in gas
+  * Most recipients don't even care about their tokens!
 
 </script></section>
 
 
+
+<section data-markdown><script type="text/template">
+
+## Air-drops: Better way
+
+* Use a merkle tree to commit to the initial balances
+* Anybody can submit a proof and claim their tokens
+  * The contract creator doesn't pay any gas for the distribution
+  * Only people who care about their tokens need to pay gas
+
+</script></section>
+
+
+
+<section data-markdown><script type="text/template">
+
+## Air-drops: Better way
+
+* Use a merkle tree to commit to the initial balances
+* Anybody can submit a proof and claim their tokens
+  * The contract creator doesn't pay any gas for the distribution
+  * Only people who care about their tokens need to pay gas
+
+</script></section>
+
+
+
+
+<section data-markdown><script type="text/template">
+
+## Lab 2: Voting
+
+[voting.html](voting.html)
+
+</script></section>
 
 
 

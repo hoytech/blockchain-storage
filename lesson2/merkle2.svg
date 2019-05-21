@@ -26,13 +26,13 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.98994949"
-     inkscape:cx="90.682056"
+     inkscape:cx="178.56533"
      inkscape:cy="162.95665"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
      inkscape:window-width="1920"
-     inkscape:window-height="1031"
+     inkscape:window-height="1029"
      inkscape:window-x="0"
      inkscape:window-y="25"
      inkscape:window-maximized="1"
@@ -539,25 +539,20 @@
        y="98.466957"
        id="text5540-9"><tspan
          sodipodi:role="line"
-         id="tspan5538-3"
          x="154.06946"
          y="98.466957"
-         style="stroke-width:0.16101976px">Verifier hashes 5 to</tspan><tspan
+         style="stroke-width:0.16101976px"
+         id="tspan6289">Hash 5 to calculate</tspan><tspan
          sodipodi:role="line"
          x="154.06946"
          y="106.51794"
          style="stroke-width:0.16101976px"
-         id="tspan6289">calculate intermediate</tspan><tspan
-         sodipodi:role="line"
-         x="154.06946"
-         y="114.56893"
-         style="stroke-width:0.16101976px"
-         id="tspan6291">node:</tspan></text>
+         id="tspan6291">intermediate node:</tspan></text>
     <circle
        style="fill:#0000ff;fill-opacity:1;stroke:#0000ff;stroke-width:1.06225097;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="path2131-8-4-1"
        cx="209.82379"
-       cy="124.50808"
+       cy="116.04144"
        r="2.2082808" />
     <rect
        style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.28028804;stroke-linecap:butt;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
@@ -565,39 +560,39 @@
        width="10.225043"
        height="5.7493577"
        x="171.49496"
-       y="122.02889" />
+       y="113.56223" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:7.6822629px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.19205657px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        x="184.81798"
-       y="127.2327"
+       y="118.76605"
        id="text5273-2-8-8"><tspan
          sodipodi:role="line"
          id="tspan5271-6-8-9"
          x="184.81798"
-         y="127.2327"
+         y="118.76605"
          style="stroke-width:0.19205657px">5</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:8.8826313px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.22206578px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        x="159.75983"
-       y="127.63018"
+       y="119.16351"
        id="text5273-2-8-8-6"><tspan
          sodipodi:role="line"
          id="tspan5271-6-8-9-7"
          x="159.75983"
-         y="127.63018"
+         y="119.16351"
          style="stroke-width:0.22206578px">H(</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:8.8826313px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.22206578px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        x="189.99825"
-       y="127.55447"
+       y="119.0878"
        id="text5273-2-8-8-6-7"><tspan
          sodipodi:role="line"
          id="tspan5271-6-8-9-7-3"
          x="189.99825"
-         y="127.55447"
+         y="119.0878"
          style="stroke-width:0.22206578px">) =</tspan></text>
     <text
        xml:space="preserve"
@@ -614,12 +609,12 @@
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:6.01020718px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.15025517px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        x="213.39102"
-       y="126.65761"
+       y="118.19093"
        id="text7961-4"><tspan
          sodipodi:role="line"
          id="tspan7959-3"
          x="213.39102"
-         y="126.65761"
+         y="118.19093"
          style="stroke-width:0.15025517px">i1</tspan></text>
   </g>
 </svg>
