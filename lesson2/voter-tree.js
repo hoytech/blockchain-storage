@@ -19,11 +19,11 @@ let addresses = fs.readFileSync(addressesFile, 'utf-8')
                   ;
 
 if (mode === 'root') {
-    console.log(getMerkleRoot(addresses));
+    console.log(merkleRoot(addresses));
 } else if (mode === 'proof') {
     if (process.argv.length < 5) throw("must pass in address to prove");
 
-    let proof = generateMerkleProof(addresses, process.argv[4]);
+    let proof = merkleProof(addresses, process.argv[4]);
 
     console.log('path: ', proof.path);
     console.log('witnesses: ', JSON.stringify(proof.witnesses));
@@ -34,7 +34,7 @@ if (mode === 'root') {
 
 // interface functions
 
-function getMerkleRoot(items) {
+function merkleRoot(items) {
     if (items.length === 0) throw("can't build merkle tree without level");
 
     let level = items.map(leafHash);
@@ -46,7 +46,7 @@ function getMerkleRoot(items) {
     return level[0];
 }
 
-function generateMerkleProof(items, item) {
+function merkleProof(items, item) {
     let index = items.findIndex((i) => i === item);
     if (index === -1) throw("item not found in items: " + item);
 
@@ -75,7 +75,7 @@ function generateMerkleProof(items, item) {
     }
 
     return {
-        path: path.reverse().reduce((a,b) => (a << 1) | b, 0),
+        path: path.reduceRight((a,b) => (a << 1) | b, 0),
         witnesses,
     };
 }
