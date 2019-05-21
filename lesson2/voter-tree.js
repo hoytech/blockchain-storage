@@ -1,5 +1,5 @@
-const ethers = require('ethers');
 const fs = require('fs');
+const ethers = require('ethers');
 
 
 if (process.argv.length < 4) {
@@ -32,20 +32,15 @@ if (mode === 'root') {
 }
 
 
+// interface functions
+
 function getMerkleRoot(items) {
     if (items.length === 0) throw("can't build merkle tree without level");
 
     let level = items.map(leafHash);
 
     while (level.length > 1) {
-        let nextLevel = [];
-
-        for (let i = 0; i < level.length; i += 2) {
-            if (i === level.length - 1) nextLevel.push(level[i]); // odd number of nodes at this level
-            else nextLevel.push(nodeHash(level[i], level[i+1]));
-        }
-
-        level = nextLevel;
+        level = hashLevel(level);
     }
 
     return level[0];
@@ -55,7 +50,7 @@ function generateMerkleProof(items, item) {
     let index = items.findIndex((i) => i === item);
     if (index === -1) throw("item not found in items: " + item);
 
-    let pathArr = [];
+    let path = [];
     let witnesses = [];
 
     let level = items.map(leafHash);
@@ -65,37 +60,37 @@ function generateMerkleProof(items, item) {
 
         let nextIndex = Math.floor(index / 2);
 
-        if (nextIndex * 2 === index) {
-            // left side
-            if (index < level.length - 1) {
-                // only if we're not the last in a level with odd number of nodes
-                pathArr.push(0);
+        if (nextIndex * 2 === index) { // left side
+            if (index < level.length - 1) { // only if we're not the last in a level with odd number of nodes
+                path.push(0);
                 witnesses.push(level[index + 1]);
             }
-        } else {
-            // right side
-            pathArr.push(1);
+        } else { // right side
+            path.push(1);
             witnesses.push(level[index - 1]);
         }
 
         index = nextIndex;
-
-        // Compute next level
-
-        let nextLevel = []; 
-
-        for (let i = 0; i < level.length; i += 2) {
-            if (i === level.length - 1) nextLevel.push(level[i]); // odd number of nodes at this level
-            else nextLevel.push(nodeHash(level[i], level[i+1]));
-        }
-
-        level = nextLevel;
+        level = hashLevel(level);
     }
 
-    let path = 0;
-    for (let i of pathArr.reverse()) path = (path << 1) | i;
+    return {
+        path: path.reverse().reduce((a,b) => (a << 1) | b, 0),
+        witnesses,
+    };
+}
 
-    return { path, witnesses };
+// internal utility functions
+
+function hashLevel(level) {
+    let nextLevel = [];
+
+    for (let i = 0; i < level.length; i += 2) {
+        if (i === level.length - 1) nextLevel.push(level[i]); // odd number of nodes at this level
+        else nextLevel.push(nodeHash(level[i], level[i+1]));
+    }
+
+    return nextLevel;
 }
 
 function leafHash(v) {
