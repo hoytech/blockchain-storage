@@ -1,0 +1,26 @@
+<style>
+body { font-size: 20px; }
+div { margin-top: 20px; }
+
+ul > li {
+  margin-top: 10px;
+}
+</style>
+
+<h1>Lab: Parity</h1>
+
+<div>Create a program that restores redundant parity backups of a file. Test it on the files below.</div>
+
+<div>
+    Your submission should be a program in any language of your choice. It should be able to run in 2 modes:
+    <ol>
+        <li>Concatenation: This is the case where you have both halves of a file. This mode just glues together the two provided files.</li>
+        <li>Xor: This is the case where you have one half of a file and the parity segment. This mode computes the xor of each byte in these two files to recover the other half of the file.</li>
+    </ol>
+</div>
+
+<ul>
+  <li><a href="lab/bitcoin-whitepaper-part1.txt">bitcoin-whitepaper-part1.txt</a>: The first half of the backed up file</li>
+  <li><a href="lab/bitcoin-whitepaper-part2.txt">bitcoin-whitepaper-part1.txt</a>: The second half of the backed up file</li>
+  <li><a href="lab/bitcoin-whitepaper.parity">bitcoin-whitepaper.parity</a>: The parity segment of the backed up file</li>
+</ul>
