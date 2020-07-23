@@ -613,6 +613,49 @@ carol:$2y$10$xK/m/d4vGlGLylOnQGb/kO4g16aC4S0VrsHOxVcG5zHHO3GQj/vwG
 
 
 
+
+<section data-markdown><script type="text/template">
+
+## Sparse Trees
+
+* Trees with "empty" leaves are called *sparse*
+* Optimization when many leaves are empty: Cache the value of empty sub-trees
+  * Allows simulating gigantic trees
+
+<img src="sparse.svg" style="background-color: white;" />
+
+</script></section>
+
+
+
+<section data-markdown><script type="text/template">
+
+## Multiple Proofs
+
+* To prove multiple elements you can create proofs for each
+* But there are redundant nodes in these proofs
+
+<img src="combinedproof1.svg" style="background-color: white;" />
+
+</script></section>
+
+
+
+<section data-markdown><script type="text/template">
+
+## Combined Proofs, 2
+
+* These redundancies can be eliminated with the [octupus algorithm](https://eprint.iacr.org/2017/933.pdf) or [quadrable strands](https://github.com/hoytech/quadrable#strands)
+
+<img src="combinedproof2.svg" style="background-color: white;" />
+
+</script></section>
+
+
+
+
+
+
 <section data-markdown><script type="text/template">
 
 ## Merkle Mountain Ranges
@@ -694,6 +737,8 @@ carol:$2y$10$xK/m/d4vGlGLylOnQGb/kO4g16aC4S0VrsHOxVcG5zHHO3GQj/vwG
 </p></div>
 
 </section>
+
+
 
 
 
