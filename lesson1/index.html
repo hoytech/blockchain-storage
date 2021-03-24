@@ -110,7 +110,7 @@
 
 ### Lesson 1: History and Principles
 
-*Doug Hoyte, May 2019*
+*Doug Hoyte, March 2021*
 
 [https://is.gd/blockchainstorage](https://is.gd/blockchainstorage)
 
@@ -302,14 +302,6 @@ aa9606eb8c0bbce00552907f541547c4c510134f *ubuntu-18.04.2-live-server-amd64.iso
 
 
 
-<section data-markdown><script type="text/template">
-
-## 15 minute break
-
-</script></section>
-
-
-
 
 
 <section data-markdown><script type="text/template">
@@ -326,14 +318,43 @@ aa9606eb8c0bbce00552907f541547c4c510134f *ubuntu-18.04.2-live-server-amd64.iso
 
 <section data-markdown><script type="text/template">
 
-## Ethereum data costs
+## Storage costs
 
-* On the ethereum block-chain, call data costs gas for each byte
+* Exact gas accounting is complicated
+* Writing to an empty (`0`) storage slot: 20,000 gas
+  * You get 15,000 gas refund when zeroing it out again later (see GAS token)
+* Writing to a non-empty storage slot: 5,000 gas
+  * After first write: 800 gas
+* This is changing in Berlin hard-fork
+  * SLOAD becomes more expensive
+  * Cheaper SSTORE in some cases
+
+</script></section>
+
+
+
+<section data-markdown><script type="text/template">
+
+## Call-data costs
+
+* Call-data is the data that is sent along with a transaction
+  * For example: arguments to functions you call
+* Costs gas for each byte
   * `0` bytes cost 4 gas
   * All other bytes cost 16 gas
 * Why are `0` bytes cheaper?
 
 </script></section>
+
+
+
+
+<section data-markdown><script type="text/template">
+
+## 15 minute break
+
+</script></section>
+
 
 
 
@@ -648,9 +669,13 @@ hello world
 
 <section data-markdown><script type="text/template">
 
-## Lab 1: Shrinker
+## Lab 1: Parity or Shrinker
 
 [parity.html](parity.html)
+
+**OR** (not both)
+
+[shrinker.html](shrinker.html)
 
 </script></section>
 
