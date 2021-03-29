@@ -14,7 +14,7 @@
    viewBox="0 0 189.31515 94.964714"
    version="1.1"
    id="svg4568"
-   inkscape:version="0.92.3 (2405546, 2018-03-11)"
+   inkscape:version="0.92.5 (2060ec1f9f, 2020-04-08)"
    sodipodi:docname="merkle8.svg">
   <defs
      id="defs4562">
@@ -154,14 +154,14 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.4142136"
-     inkscape:cx="326.36416"
-     inkscape:cy="182.72946"
+     inkscape:zoom="1"
+     inkscape:cx="162.38986"
+     inkscape:cy="191.90586"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
      inkscape:window-width="1920"
-     inkscape:window-height="1029"
+     inkscape:window-height="1031"
      inkscape:window-x="0"
      inkscape:window-y="25"
      inkscape:window-maximized="1"
@@ -846,7 +846,7 @@
          id="tspan7959-2"
          x="204.63245"
          y="95.457581"
-         style="stroke-width:0.15025517px">i2</tspan></text>
+         style="stroke-width:0.15025517px">i3</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:8.8826313px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.22206578px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -879,7 +879,7 @@
          id="tspan2360"
          x="156.0522"
          y="119.58125"
-         style="stroke-width:0.1254825px">i2 is on right because</tspan><tspan
+         style="stroke-width:0.1254825px">i3 is on right because</tspan><tspan
          sodipodi:role="line"
          x="156.0522"
          y="125.85538"
