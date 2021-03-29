@@ -110,7 +110,7 @@
 
 ### Lesson 2: Merkle Trees
 
-*Doug Hoyte, May 2019*
+*Doug Hoyte, March 2021*
 
 [https://is.gd/blockchainstorage](https://is.gd/blockchainstorage)
 
@@ -569,6 +569,20 @@ carol:$2y$10$xK/m/d4vGlGLylOnQGb/kO4g16aC4S0VrsHOxVcG5zHHO3GQj/vwG
 <span class="highlight">1</span>11110110111100101000001110001101010100...
 </pre>
 
+</script></section>
+
+
+<section data-markdown><script type="text/template">
+
+## Omitted path optimization 2
+
+* An even more elegant way to omit the path is to sort the hashes of the nodes:
+      if (computedHash <= proofElement) {
+          computedHash = hash(computedHash, proofElement);
+      } else {
+          computedHash = hash(proofElement, computedHash);
+      }
+* This is most popular approach taken by merkle libraries on Ethereum today
 
 </script></section>
 
